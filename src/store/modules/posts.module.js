@@ -21,12 +21,10 @@ export default {
       state.users = users
     },
     setRender(state) {
-      console.log(state.postsReq)
      state.postsReq.forEach((i)=> {
         let authorFind = state.users.find(n => n.id == i.userId)
        state.postsRender.push({title: i.title, body: i.body, author: authorFind.name})
      })
-      console.log(state.postsRender)
     }
   },
   getters: {
@@ -45,12 +43,11 @@ export default {
         commit('setPosts', res.data)
         commit('setUsers', resUsers.data)
         commit('setRender')
-        console.log(this.getters.filtered)
         this.state.posts.loading = false
       } catch (e) {
         this.state.posts.loading = false
         console.dir(e)
-        // this.state.posts.error = `Error response ${e.response.status} ${e.response.statusText}`
+        this.state.posts.error = `Error response ${e.response.status} ${e.response.statusText}`
       }
     },
   }
